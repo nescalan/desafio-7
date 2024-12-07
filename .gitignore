@@ -1,0 +1,20 @@
+# Configuración local de Terraform
+.terraformrc
+terraform.tfvars
+terraform.tfvars.json
+
+# Estados de Terraform
+terraform.tfstate
+terraform.tfstate.*
+
+# Cachés y logs
+.terraform
+*.tfplan
+
+# Credenciales y claves
+*.key
+*.pem
+*.ppk
+
+# Directorios temporales
+.terraform/modules
