@@ -18,6 +18,6 @@ resource "aws_instance" "ubuntu_server" {
               EOF
 
   tags = {
-    Name = "Ubuntu-Server for desafio-7"
+    Name = "Apache Ubuntu-Server"
   }
 }
