@@ -57,3 +57,9 @@ resource "aws_instance" "ubuntu_server" {
   vpc_security_group_ids = [aws_security_group.allow_http.id]
 }
 
+output "instance_public_ip" {
+  value       = aws_instance.ubuntu_server.public_ip
+  description = "IP pública de la instancia EC2"
+}
+
+

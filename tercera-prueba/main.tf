@@ -3,13 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "static_site" {
-  bucket = "desafio_siete" # Cambia el nombre del bucket a uno único
-  acl    = "private"
-
-  website {
-    index_document = "index.html"
-    error_document = "error.html"
-  }
+  bucket = "desafio-siete-aws" # Nombre del bucket
 
   tags = {
     Name = "StaticWebsiteBucket"
@@ -40,8 +34,22 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
   })
 }
 
+resource "aws_s3_bucket_website_configuration" "static_site" {
+  bucket = aws_s3_bucket.static_site.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+}
+
+
+
 resource "aws_cloudfront_origin_access_control" "oac" {
-  name   = "S3OAC"
+  name                              = "S3OAC"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -90,4 +98,9 @@ resource "aws_cloudfront_distribution" "site_distribution" {
   tags = {
     Name = "StaticSiteCloudFrontDistribution"
   }
+}
+
+output "cloudfront_url" {
+  value       = aws_cloudfront_distribution.site_distribution.domain_name
+  description = "URL del sitio web servida por CloudFront"
 }
